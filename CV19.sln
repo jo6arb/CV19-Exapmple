@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CV19", "CV19\CV19.csproj", "{A7BA0975-5420-48D6-B241-0171BBC10574}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CC8EBF6A-0080-422A-BACA-8EE643063E8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVConsoleAppTest", "CVConsoleAppTest\CVConsoleAppTest.csproj", "{B38CCDA4-1616-4E06-8397-A3687B2908C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{A7BA0975-5420-48D6-B241-0171BBC10574}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7BA0975-5420-48D6-B241-0171BBC10574}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7BA0975-5420-48D6-B241-0171BBC10574}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B38CCDA4-1616-4E06-8397-A3687B2908C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B38CCDA4-1616-4E06-8397-A3687B2908C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B38CCDA4-1616-4E06-8397-A3687B2908C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B38CCDA4-1616-4E06-8397-A3687B2908C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B38CCDA4-1616-4E06-8397-A3687B2908C5} = {CC8EBF6A-0080-422A-BACA-8EE643063E8D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DE0683D3-B7A4-4A5C-81BC-35FE6FA708C8}
