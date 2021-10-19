@@ -42,11 +42,27 @@ namespace CVConsoleTest
             .Select(s => DateTime.Parse(s, CultureInfo.InvariantCulture))
             .ToArray();
 
+        private static IEnumerable<(string country, string province, int[] counts)> GetData()
+        {
+            var lines = GetDataLines()
+                .Skip(1)
+                .Select(line => line.Split(','));
+
+            foreach (var row in lines)
+            {
+                var country = row[0].Trim();
+                var province = row[1].Trim();
+                var counts = row.Skip(4).Select(int.Parse).ToArray();
+                yield return (country, province, counts);
+            }
+        }
+
         static void Main(string[] args)
         {
-            var dates = GetDateTimes();
+            var russiaData = GetData()
+                .First(v => v.country.Equals("Russia", StringComparison.OrdinalIgnoreCase));
 
-            Console.WriteLine(string.Join("\r\n",dates));
+            Console.WriteLine(string.Join("\r\n", russiaData));
         }
     }
 }
