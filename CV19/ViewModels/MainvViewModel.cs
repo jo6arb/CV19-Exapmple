@@ -1,13 +1,20 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Input;
 using CV19.Infrastructure.Commands;
+using CV19.Models.Decanat;
 using CV19.ViewModels.Base;
 
 namespace CV19.ViewModels
 {
     internal class MainvViewModel : ViewModel
     {
+
+        public  ObservableCollection<Group> Groups { get; }
         #region Заголовок окна
 
         /// <summary>Заголовок окна</summary>
@@ -49,6 +56,24 @@ namespace CV19.ViewModels
         {
             CloseApplicationCommand =
                 new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+
+            var studentIndex = 1;
+
+            var students = Enumerable.Range(1, 20).Select(i => new Student
+            {
+                Name = $"Name {studentIndex}",
+                Surname = $" Surname {studentIndex}",
+                Patronymic = $"Pathromyc {studentIndex++}",
+                Birthday = DateTime.Now,
+                Rating = 0
+            });
+            var grosups = Enumerable.Range(1, 10).Select(i => new Group
+            {
+                Name = $"Группа {i}",
+                Students = new ObservableCollection<Student>(students)
+            }); 
+            
+            Groups = new ObservableCollection<Group>(grosups);
         }
     }
 }
