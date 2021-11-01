@@ -77,24 +77,22 @@
                     <GroupBox Header="Группы">
                         <DockPanel >
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
-                                <UniformGrid.Resources>
-                                    <Style TargetType="Button">
-                                        <Setter Property="Margin" Value="3,0" />
-                                        <Setter Property="Padding" Value="3,5" />
-                                        <Setter Property="Background" Value="White"/>
-                                    </Style>
-                                </UniformGrid.Resources>
-                                <Button Content="Добавить" Style="{StaticResource PrimaryBtn}"  Command="{Binding CreateNewGroupCommand}"/>
-                                <Button Content="Удалить" Style="{StaticResource DangerBtn}"   Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
+                                <Button Style="{StaticResource ComfirnbuttonStyle}" Padding="0,7" Content="Добавить" Command="{Binding CreateNewGroupCommand}"/>
+                                <Button  Style="{StaticResource RemovebuttonStyle}" Content="Удалить"   Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Groups }" SelectedIndex="0"
                                      SelectedItem="{Binding SelectedGroup}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="decanat:Group">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Name}" />
+                                            <TextBlock Text="{Binding Name}" Name="TextView" />
                                             <TextBlock Text="{Binding Students.Count, StringFormat=[Студентов:{0}]}" Margin="3,0,0,0" />
                                         </StackPanel>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding Students.Count}" Value="0">
+                                                <Setter TargetName="TextView" Property="Foreground" Value="Red"/>
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
