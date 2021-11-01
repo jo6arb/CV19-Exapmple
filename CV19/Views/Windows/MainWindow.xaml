@@ -94,7 +94,6 @@
                         <ContentControl Content="{Binding SelectedCompositeValue}" />
                     </GroupBox>
                 </Grid>
-                
             </TabItem>
             <TabItem Header="Студенты">
                 <Grid>
