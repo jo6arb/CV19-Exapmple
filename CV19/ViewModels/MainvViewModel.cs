@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
+using System.Dynamic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows;
@@ -86,10 +88,53 @@ namespace CV19.ViewModels
 
         #endregion
 
+        #region CreateNewGroupCommand
+
+        public ICommand CreateNewGroupCommand { get; }
+
+        private bool CanCreateNewGroupCommandExecute(object p) => true;
+
+        private void OnCreateNewGroupCommandExecuted(object p)
+        {
+            var groupMaxIndex = Groups.Count + 1;
+            var newGroup = new Group
+            {
+                Name = $"Группа {groupMaxIndex}",
+                Students = new ObservableCollection<Student>()
+            };
+
+            Groups.Add(newGroup);
+        }
+
+        #endregion
+
+        #region DeleteGroupCommand
+
+        public ICommand DeleteGroupCommand { get; }
+
+        private bool CanDeleteGroupCommandExecute(object p) => p is Group group && Groups.Contains(group);
+
+        private void OnDeleteGroupCommandExecuted(object p)
+        {
+            if(!(p is Group group)) return;
+            var groupIndex = Groups.IndexOf(group);
+            Groups.Remove(group);
+            if (groupIndex < Groups.Count)
+                SelectedGroup = Groups[groupIndex];
+        }
+
+        #endregion
+
+
         public MainvViewModel()
         {
-            CloseApplicationCommand =
-                new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+            #region Команды
+
+            CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+            CreateNewGroupCommand = new LambdaCommand(OnCreateNewGroupCommandExecuted, CanCreateNewGroupCommandExecute);
+            DeleteGroupCommand = new LambdaCommand(OnDeleteGroupCommandExecuted, CanDeleteGroupCommandExecute);
+
+            #endregion
 
             var studentIndex = 1;
 
