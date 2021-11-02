@@ -75,6 +75,14 @@ namespace CV19.ViewModels
 
         #endregion
 
+        public IEnumerable<Student> TeStudents => 
+            Enumerable.Range(1, App.IsDesignMode ? 10 : 100_000)
+            .Select(i => new Student
+            {
+                Name = $" Имя {i}",
+                Surname = $"Фамилия {i}"
+            });
+
         #region CloseApplicationCommand - команда закрытия приложения
 
         public ICommand CloseApplicationCommand { get; }

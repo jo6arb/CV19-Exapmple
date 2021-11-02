@@ -142,6 +142,19 @@
                                   Width="4" />
                 </Grid>
             </TabItem>
+            <TabItem Header="Тестирование визуализации">
+                <Grid>
+                    <TextBlock Text="{Binding Source={x:Static l:App.IsDesignMode}}"/>
+                        <ListBox HorizontalAlignment="Left" Width="200" Margin="30"
+                                 ItemsSource="{Binding TeStudents}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="decanat:Student">
+                                    <TextBlock Text="{Binding Surname}" ToolTip="{Binding Name}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                </Grid>
+            </TabItem> 
             
                     
         </TabControl>
