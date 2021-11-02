@@ -29,8 +29,11 @@ namespace CVConsoleTest
              {
                  var line = dataReader.ReadLine();
                  if(string.IsNullOrWhiteSpace(line)) continue;
-                 yield return line;
-             }
+                yield return line
+                    .Replace("Korea,", "Korea -")
+                    .Replace("Bonaire,", "Bonaire -")
+                    .Replace("Helena,", "Helena -");
+            }
 
         }
 
@@ -49,8 +52,8 @@ namespace CVConsoleTest
 
             foreach (var row in lines)
             {
-                var country = row[0].Trim();
-                var province = row[1].Trim();
+                var province = row[0].Trim();
+                var country = row[1].Trim();
                 var counts = row.Skip(4).Select(int.Parse).ToArray();
                 yield return (country, province, counts);
             }
@@ -59,9 +62,9 @@ namespace CVConsoleTest
         static void Main(string[] args)
         {
             var russiaData = GetData()
-                .First(v => v.country.Equals("Russia", StringComparison.OrdinalIgnoreCase));
+                .First(v => v.country.Equals("Afghanistan", StringComparison.OrdinalIgnoreCase));
 
-            Console.WriteLine(string.Join("\r\n", russiaData));
+            Console.WriteLine(string.Join("\r\n", GetDateTimes().Zip(russiaData.counts, (date, count) => $"{date:dd:MM} - {count}")));
         }
     }
 }
