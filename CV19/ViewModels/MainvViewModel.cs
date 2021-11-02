@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Dynamic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using CV19.Infrastructure.Commands;
 using CV19.Models.Decanat;
 using CV19.ViewModels.Base;
+using OxyPlot;
 
 namespace CV19.ViewModels
 {
@@ -47,7 +50,70 @@ namespace CV19.ViewModels
         /// <summary>
         /// Выбранная группа
         /// </summary>
-        public Group SelectedGroup { get => _selectedGroup; set => Set(ref _selectedGroup, value);}
+        public Group SelectedGroup
+        {
+            get => _selectedGroup;
+            set
+            {
+                if(!Set(ref _selectedGroup, value)) return;
+
+                _selectedGroupStudent.Source = value?.Students;
+                OnPropertyChanged(nameof(SelectedGroupStudent));
+            }
+        }
+
+        #endregion
+
+        #region StudentFilterText : string - Текст фильтра студента
+
+        /// <summary>
+        /// Текст фильтра студента
+        /// </summary>
+        private string _studentFilterText;
+
+        /// <summary>
+        /// Текст фильтра студента
+        /// </summary>
+        public string StudentFilterText
+        {
+            get => _studentFilterText;
+            set
+            {
+                if(!Set(ref _studentFilterText, value)) return;
+                _selectedGroupStudent.View.Refresh();
+            }
+        }
+
+        #endregion
+
+        #region SelectedGroupStudents
+
+        private readonly CollectionViewSource _selectedGroupStudent = new CollectionViewSource();
+
+        public ICollectionView SelectedGroupStudent => _selectedGroupStudent?.View;
+        
+        private void OnStudentFiltred(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is Student student ))
+            {
+                e.Accepted = false;
+                return;
+            }
+
+            var filterText = _studentFilterText;
+            if (string.IsNullOrWhiteSpace(filterText)) return;
+
+            if (student.Name is null || student.Surname is null || student.Patronymic is null)
+            {
+                e.Accepted = false;
+                return;
+            }
+            if (student.Name.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+            if (student.Surname.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+            if (student.Patronymic.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+
+            e.Accepted = false;
+        }
 
         #endregion
 
@@ -82,7 +148,7 @@ namespace CV19.ViewModels
                 Name = $" Имя {i}",
                 Surname = $"Фамилия {i}"
             });
-
+        
         #region CloseApplicationCommand - команда закрытия приложения
 
         public ICommand CloseApplicationCommand { get; }
@@ -146,7 +212,7 @@ namespace CV19.ViewModels
 
             var studentIndex = 1;
 
-            var students = Enumerable.Range(1, 20).Select(i => new Student
+            var students = Enumerable.Range(1, 10).Select(i => new Student
             {
                 Name = $"Name {studentIndex}",
                 Surname = $" Surname {studentIndex}",
@@ -154,7 +220,7 @@ namespace CV19.ViewModels
                 Birthday = DateTime.Now,
                 Rating = 0
             });
-            var grosups = Enumerable.Range(1, 10).Select(i => new Group
+            var grosups = Enumerable.Range(1, 20).Select(i => new Group
             {
                 Name = $"Группа {i}",
                 Students = new ObservableCollection<Student>(students)
@@ -173,6 +239,12 @@ namespace CV19.ViewModels
 
             CompositeCollection = dataList.ToArray();
 
+            _selectedGroupStudent.Filter+= OnStudentFiltred;
+
+           //_selectedGroupStudent.SortDescriptions.Add(new SortDescription());
+            //_selectedGroupStudent.GroupDescriptions.Add(new PropertyGroupDescription("Name"));
         }
+
+        
     }
 }
