@@ -31,43 +31,6 @@
             </StatusBarItem>
         </StatusBar>
         <TabControl>
-            <TabItem Header="Разнородные данные">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <GroupBox>
-                        <GroupBox.Header>
-                            <TextBlock Text="Элементы" />
-                        </GroupBox.Header>
-                        <GroupBox.Resources>
-                            <ResourceDictionary>
-
-                                <ResourceDictionary.MergedDictionaries>
-                                    <ResourceDictionary Source="../../Resources/DataTemplate/CompositeListItemsDataTemplate.xaml" />
-                                </ResourceDictionary.MergedDictionaries>
-                            </ResourceDictionary>
-                        </GroupBox.Resources>
-                        <ListBox ItemsSource="{Binding CompositeCollection}" 
-                                 SelectedItem="{Binding SelectedCompositeValue}">
-                            </ListBox>
-                    </GroupBox>
-                    <GroupBox Grid.Column="1">
-                        <GroupBox.Header>
-                            <TextBlock Text="Выбранный элемент" /> 
-                        </GroupBox.Header>
-                        <GroupBox.Resources>
-                            <ResourceDictionary>
-                                <ResourceDictionary.MergedDictionaries>
-                                    <ResourceDictionary Source="../../Resources/DataTemplate/CompositItemControlDataTemplates.xaml"></ResourceDictionary>
-                                </ResourceDictionary.MergedDictionaries>
-                            </ResourceDictionary>
-                        </GroupBox.Resources>
-                        <ContentControl Content="{Binding SelectedCompositeValue}" />
-                    </GroupBox>
-                </Grid>
-            </TabItem>
             <TabItem Header="Студенты">
                 <Grid>
                     <Grid.ColumnDefinitions>
