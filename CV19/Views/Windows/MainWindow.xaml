@@ -40,11 +40,13 @@
                     <GroupBox Header="Группы">
                         <DockPanel>
                             <DockPanel.Resources>
-                                <CollectionViewSource x:Key="GroupCollection" Source="{Binding Groups}" />
+                                <CollectionViewSource x:Key="GroupCollection" 
+                                                                 Source="{Binding Groups}" 
+                                                                 Filter="GroupsCollection_OnFIlter"/>
                             </DockPanel.Resources>
                             <DockPanel DockPanel.Dock="Top" Margin="0,0,0,3">
                                 <fa5:ImageAwesome Height="12" Icon="Solid_Search"  Margin="3, 0"/>
-                                <TextBox />
+                                <TextBox Name="GroupNameFilterText" TextChanged="OnGroupsFilterTextChanged"/>
                             </DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
                                 <Button Style="{StaticResource ComfirnbuttonStyle}" Padding="0,7" Content="Добавить" Command="{Binding CreateNewGroupCommand}"/>
