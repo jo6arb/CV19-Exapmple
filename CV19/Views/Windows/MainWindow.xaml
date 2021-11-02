@@ -38,7 +38,10 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <GroupBox Header="Группы">
-                        <DockPanel >
+                        <DockPanel>
+                            <DockPanel.Resources>
+                                <CollectionViewSource x:Key="GroupCollection" Source="{Binding Groups}" />
+                            </DockPanel.Resources>
                             <DockPanel DockPanel.Dock="Top" Margin="0,0,0,3">
                                 <fa5:ImageAwesome Height="12" Icon="Solid_Search"  Margin="3, 0"/>
                                 <TextBox />
@@ -47,7 +50,7 @@
                                 <Button Style="{StaticResource ComfirnbuttonStyle}" Padding="0,7" Content="Добавить" Command="{Binding CreateNewGroupCommand}"/>
                                 <Button  Style="{StaticResource RemovebuttonStyle}" Content="Удалить"   Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
                             </UniformGrid>
-                            <ListBox ItemsSource="{Binding Groups }" SelectedIndex="0"
+                            <ListBox ItemsSource="{Binding Source={StaticResource GroupCollection }}"  SelectedIndex="0"
                                      SelectedItem="{Binding SelectedGroup}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="decanat:Group">
@@ -64,9 +67,7 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </DockPanel>
-                        
-                    </GroupBox>
-
+                        </GroupBox>
                     <GroupBox Grid.Column="1" Header="{Binding SelectedGroup.Name, FallbackValue='Студенты', TargetNullValue='Группа не выбрана'}">
                         <DockPanel>
                             <DockPanel DockPanel.Dock="Top" Margin="0,0,0,3">
