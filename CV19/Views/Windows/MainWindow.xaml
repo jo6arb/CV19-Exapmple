@@ -39,6 +39,10 @@
                     </Grid.ColumnDefinitions>
                     <GroupBox Header="Группы">
                         <DockPanel >
+                            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,3">
+                                <fa5:ImageAwesome Height="12" Icon="Solid_Search"  Margin="3, 0"/>
+                                <TextBox />
+                            </DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
                                 <Button Style="{StaticResource ComfirnbuttonStyle}" Padding="0,7" Content="Добавить" Command="{Binding CreateNewGroupCommand}"/>
                                 <Button  Style="{StaticResource RemovebuttonStyle}" Content="Удалить"   Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}"/>
@@ -64,34 +68,41 @@
                     </GroupBox>
 
                     <GroupBox Grid.Column="1" Header="{Binding SelectedGroup.Name, FallbackValue='Студенты', TargetNullValue='Группа не выбрана'}">
-                        <DataGrid ItemsSource="{Binding SelectedGroup.Students}"
-                                  AutoGenerateColumns="False"
-                                  CanUserAddRows="False"
-                                  GridLinesVisibility="Vertical"
-                                  VerticalGridLinesBrush="DarkGray"
-                                  AlternatingRowBackground="LightGray">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Фамилия" Binding="{  Binding Surname}" IsReadOnly="True" />
-                                <DataGridTextColumn Header="Имя" Binding="{ Binding Name}" IsReadOnly="True" />
-                                <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" IsReadOnly="True" />
-                                <DataGridTextColumn Header="Рейтинг" Binding="{Binding Rating}" IsReadOnly="True"/>
-                                <DataGridTemplateColumn Header="Дата рождения">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate DataType="decanat:Student">
-                                            <TextBlock Text="{Binding Birthday, StringFormat=dd.MM.yyyy}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                    <DataGridTemplateColumn.CellEditingTemplate>
-                                        <DataTemplate DataType="decanat:Student">
-                                            <DatePicker SelectedDate="{Binding Birthday}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellEditingTemplate>
-                                </DataGridTemplateColumn>
-                                <!--<DataGridTextColumn Header="Дата рождения" Binding="{Binding Birthday, StringFormat=dd.MM.yyyy} " />-->
-                                <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="*" />
-                                <!--<DataGridTextColumn Header="Группа" Binding="{Binding DataContext.SelectedGroup.Name, RelativeSource={ RelativeSource AncestorType=DataGrid}}"/>-->
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,3">
+                                <fa5:ImageAwesome Height="12" Icon="Solid_Search"  Margin="3, 0"/>
+                                <TextBox />
+                            </DockPanel>
+                            <DataGrid ItemsSource="{Binding SelectedGroup.Students}"
+                                      AutoGenerateColumns="False"
+                                      CanUserAddRows="False"
+                                      GridLinesVisibility="Vertical"
+                                      VerticalGridLinesBrush="DarkGray"
+                                      AlternatingRowBackground="LightGray">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Фамилия" Binding="{  Binding Surname}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="Имя" Binding="{ Binding Name}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" IsReadOnly="True" />
+                                    <DataGridTextColumn Header="Рейтинг" Binding="{Binding Rating}" IsReadOnly="True"/>
+                                    <DataGridTemplateColumn Header="Дата рождения">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate DataType="decanat:Student">
+                                                <TextBlock Text="{Binding Birthday, StringFormat=dd.MM.yyyy}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate DataType="decanat:Student">
+                                                <DatePicker SelectedDate="{Binding Birthday}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                    </DataGridTemplateColumn>
+                                    <!--<DataGridTextColumn Header="Дата рождения" Binding="{Binding Birthday, StringFormat=dd.MM.yyyy} " />-->
+                                    <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="*" />
+                                    <!--<DataGridTextColumn Header="Группа" Binding="{Binding DataContext.SelectedGroup.Name, RelativeSource={ RelativeSource AncestorType=DataGrid}}"/>-->
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                        
                     </GroupBox>
                 </Grid>
             </TabItem>
