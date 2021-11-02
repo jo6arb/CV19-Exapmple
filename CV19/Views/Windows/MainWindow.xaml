@@ -146,7 +146,15 @@
                 <Grid>
                     <TextBlock Text="{Binding Source={x:Static l:App.IsDesignMode}}"/>
                         <ListBox HorizontalAlignment="Left" Width="200" Margin="30"
-                                 ItemsSource="{Binding TeStudents}">
+                                 ItemsSource="{Binding TeStudents}"
+                                 VirtualizingPanel.IsVirtualizing="True"
+                                 VirtualizingPanel.VirtualizationMode="Recycling"
+                                 VirtualizingPanel.IsContainerVirtualizable="True">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
                                 <DataTemplate DataType="decanat:Student">
                                     <TextBlock Text="{Binding Surname}" ToolTip="{Binding Name}" />
