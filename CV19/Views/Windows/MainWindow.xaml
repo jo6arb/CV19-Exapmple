@@ -47,9 +47,9 @@
                                     <CollectionViewSource.SortDescriptions>
                                         <cm:SortDescription PropertyName="Name" Direction="Descending" />
                                     </CollectionViewSource.SortDescriptions>
-                                    <CollectionViewSource.GroupDescriptions>
+                                    <!--<CollectionViewSource.GroupDescriptions>
                                         <PropertyGroupDescription PropertyName="Students.Count" />
-                                    </CollectionViewSource.GroupDescriptions>
+                                    </CollectionViewSource.GroupDescriptions>-->
                                 </CollectionViewSource>
                                
                             </DockPanel.Resources>
@@ -66,7 +66,6 @@
                                      VirtualizingPanel.IsContainerVirtualizable="True"
                                      VirtualizingPanel.IsVirtualizing="True"
                                      VirtualizingPanel.VirtualizationMode="Recycling">
-                                
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel />
