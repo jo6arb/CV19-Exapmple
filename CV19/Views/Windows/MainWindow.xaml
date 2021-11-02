@@ -142,7 +142,7 @@
                                   Width="4" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Тестирование визуализации">
+            <TabItem Header="Тестирование визуализации" Visibility="Collapsed">
                 <Grid>
                     <TextBlock Text="{Binding Source={x:Static l:App.IsDesignMode}}"/>
                         <ListBox HorizontalAlignment="Left" Width="200" Margin="30"
