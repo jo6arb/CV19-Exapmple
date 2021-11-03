@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Point = System.Windows.Point;
+using System.Windows;
 
 namespace CV19.Models
 {
