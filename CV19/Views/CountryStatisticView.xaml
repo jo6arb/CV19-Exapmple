@@ -6,6 +6,7 @@
              xmlns:l="clr-namespace:CV19"
              xmlns:vm="clr-namespace:CV19.ViewModels"
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
+             xmlns:m="clr-namespace:CV19.Models"
              d:DataContext="{d:DesignInstance vm:CountryStatisticViewModel, d:IsDesignTimeCreatable=true}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -22,7 +23,16 @@
                         <TextBlock Text="Загрузить данные" />
                     </StackPanel>
                 </Button>
-                <ListBox ItemsSource="{Binding Countries}"/>
+                <ListBox ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCounty}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="m:CountryInfo">
+                            <TextBlock >
+                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Text="{Binding Location}" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </DockPanel>
             
         </GroupBox >
