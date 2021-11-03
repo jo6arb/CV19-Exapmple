@@ -13,6 +13,8 @@ namespace CV19.ViewModels
     internal class MainvViewModel : ViewModel
     {
 
+        private readonly CountryStatisticViewModel _countryStatistic;
+
         public  ObservableCollection<Group> Groups { get; }
         
         #region SelectedGroup : Group - Выбранная группа
@@ -105,6 +107,7 @@ namespace CV19.ViewModels
 
         public MainvViewModel()
         {
+            _countryStatistic = new CountryStatisticViewModel(this);
             #region Команды
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
