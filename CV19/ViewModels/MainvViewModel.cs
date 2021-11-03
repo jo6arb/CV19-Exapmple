@@ -12,8 +12,7 @@ namespace CV19.ViewModels
 {
     internal class MainvViewModel : ViewModel
     {
-
-        private readonly CountryStatisticViewModel _countryStatistic;
+        public CountryStatisticViewModel CountryStatistic { get; }
 
         public  ObservableCollection<Group> Groups { get; }
         
@@ -107,7 +106,7 @@ namespace CV19.ViewModels
 
         public MainvViewModel()
         {
-            _countryStatistic = new CountryStatisticViewModel(this);
+            CountryStatistic = new CountryStatisticViewModel(this);
             #region Команды
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);

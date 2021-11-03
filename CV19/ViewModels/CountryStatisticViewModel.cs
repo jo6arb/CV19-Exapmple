@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using CV19.Infrastructure.Commands;
 using CV19.Models;
@@ -38,6 +41,27 @@ namespace CV19.ViewModels
         }
 
         #endregion
+
+        /// <summary> Отладочный конструктор, используемый в процессе разработки в визуальном дизайнере </summary>
+        public CountryStatisticViewModel() : this(null)
+        {
+            _countries = Enumerable.Range(1, 10)
+                .Select(i => new CountryInfo
+            {
+                    Name = $"Country {i}",
+                    ProvinceCounts = Enumerable.Range(1,10).Select(j => new PlaceInfo
+                    {
+                        Name = $"Province {i}",
+                        Location = new Point(i, j),
+                        Counts = Enumerable.Range(1,10).Select(k => new ConfirmedCount
+                        {
+                            Date = DateTime.Now.Subtract(TimeSpan.FromDays(100-k)),
+                            Count = k
+                        })
+                    })
+                    
+            });
+        }
 
         public CountryStatisticViewModel(MainvViewModel mainVM)
         {

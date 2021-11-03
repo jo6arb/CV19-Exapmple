@@ -33,7 +33,7 @@
         <TabControl>
 
             <TabItem Header="Статистика">
-                <view:CountryStatisticView></view:CountryStatisticView>
+                <view:CountryStatisticView  DataContext="{Binding CountryStatistic}"/>
             </TabItem> 
 
             <TabItem Header="Студенты" Visibility="Collapsed">
