@@ -7,7 +7,7 @@
         xmlns:decanat="clr-namespace:CV19.Models.Decanat"
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:l="clr-namespace:CV19"
-        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+        xmlns:view="clr-namespace:CV19.Views"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800">
     <Window.DataContext>
@@ -31,44 +31,12 @@
             </StatusBarItem>
         </StatusBar>
         <TabControl>
-            <TabItem Header="Разнородные данные">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <GroupBox>
-                        <GroupBox.Header>
-                            <TextBlock Text="Элементы" />
-                        </GroupBox.Header>
-                        <GroupBox.Resources>
-                            <ResourceDictionary>
 
-                                <ResourceDictionary.MergedDictionaries>
-                                    <ResourceDictionary Source="../../Resources/DataTemplate/CompositeListItemsDataTemplate.xaml" />
-                                </ResourceDictionary.MergedDictionaries>
-                            </ResourceDictionary>
-                        </GroupBox.Resources>
-                        <ListBox ItemsSource="{Binding CompositeCollection}" 
-                                 SelectedItem="{Binding SelectedCompositeValue}">
-                            </ListBox>
-                    </GroupBox>
-                    <GroupBox Grid.Column="1">
-                        <GroupBox.Header>
-                            <TextBlock Text="Выбранный элемент" /> 
-                        </GroupBox.Header>
-                        <GroupBox.Resources>
-                            <ResourceDictionary>
-                                <ResourceDictionary.MergedDictionaries>
-                                    <ResourceDictionary Source="../../Resources/DataTemplate/CompositItemControlDataTemplates.xaml"></ResourceDictionary>
-                                </ResourceDictionary.MergedDictionaries>
-                            </ResourceDictionary>
-                        </GroupBox.Resources>
-                        <ContentControl Content="{Binding SelectedCompositeValue}" />
-                    </GroupBox>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Студенты">
+            <TabItem Header="Статистика">
+                <view:CountryStatisticView></view:CountryStatisticView>
+            </TabItem> 
+
+            <TabItem Header="Студенты" Visibility="Collapsed">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250" />
@@ -132,8 +100,7 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            
-            <TabItem>
+            <TabItem Visibility="Collapsed">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <fa5:ImageAwesome Icon="Regular_File" Height="14" Margin="0,0,0,5" />
@@ -157,8 +124,6 @@
                                   Width="4" />
                 </Grid>
             </TabItem>
-            
-                    
-        </TabControl>
+            </TabControl>
     </DockPanel>
 </Window>
