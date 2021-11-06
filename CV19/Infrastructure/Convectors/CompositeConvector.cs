@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace CV19.Infrastructure.Convectors
 {
+    [MarkupExtensionReturnType(typeof(CompositeConvector))]
     internal class CompositeConvector : Convector
     {
-
+        [ConstructorArgument("First")]
         public IValueConverter First { get; set; }
 
+        [ConstructorArgument("Second")]
         public IValueConverter Second { get; set; }
+
+        public CompositeConvector() { }
+        public CompositeConvector(IValueConverter first) => this.First = first;
+        public CompositeConvector(IValueConverter first, IValueConverter second) : this(first) => this.Second = second;
 
 
         public override object Convert(object v, Type t, object p, CultureInfo c)
@@ -18,8 +25,6 @@ namespace CV19.Infrastructure.Convectors
             var result2 = Second?.Convert(result1, t, p, c) ?? result1;
 
             return result2;
-
-
         }
 
         public override object ConvertBack(object v, Type t, object p, CultureInfo c)

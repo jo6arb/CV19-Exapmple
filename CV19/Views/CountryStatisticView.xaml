@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:l="clr-namespace:CV19"
+             xmlns:common="clr-namespace:CV19.Infrastructure.Common"
              xmlns:vm="clr-namespace:CV19.ViewModels"
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
              xmlns:m="clr-namespace:CV19.Models"
@@ -56,15 +57,15 @@
                 <Slider Name="Value3" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
                 <Slider Name="Value4" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
                 </StackPanel>
-                <ListBox Grid.Row="1">
-                    <ListBox.ItemsSource>
+                <ListBox Grid.Row="1" ItemsSource="{common:StringToIntArray '1;2;3;4;5' }">
+                    <!--<ListBox.ItemsSource>
                         <MultiBinding Converter="{StaticResource ToArrayConvector}">
                             <Binding ElementName="Value1" Path="Value"  />
                             <Binding ElementName="Value2" Path="Value"  />
                             <Binding ElementName="Value3" Path="Value"  />
                             <Binding ElementName="Value4" Path="Value"  />
                         </MultiBinding>
-                    </ListBox.ItemsSource>
+                    </ListBox.ItemsSource>-->
                 </ListBox>
             </Grid>
         </GroupBox>
