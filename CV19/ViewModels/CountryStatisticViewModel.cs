@@ -61,20 +61,20 @@ namespace CV19.ViewModels
         {
             _countries = Enumerable.Range(1, 10)
                 .Select(i => new CountryInfo
-            {
-                    Name = $"Country {i}",
-                    ProvinceCounts = Enumerable.Range(1,10).Select(j => new PlaceInfo
-                    {
-                        Name = $"Province {i}",
-                        Location = new Point(i, j),
-                        Counts = Enumerable.Range(1,10).Select(k => new ConfirmedCount
+                {
+                        Name = $"Country {i}",
+                        ProvinceCounts = Enumerable.Range(1,10).Select(j => new PlaceInfo
                         {
-                            Date = DateTime.Now.Subtract(TimeSpan.FromDays(100-k)),
-                            Count = k
-                        })
-                    })
-                    
-            });
+                            Name = $"Province {i}",
+                            Location = new Point(i, j),
+                            Counts = Enumerable.Range(1,10).Select(k => new ConfirmedCount
+                            {
+                                Date = DateTime.Now.Subtract(TimeSpan.FromDays(100 - k)),
+                                Count = k
+                            }).ToArray()
+                        }).ToArray()
+                        
+                }).ToArray();
         }
 
         public CountryStatisticViewModel(MainvViewModel mainVM)

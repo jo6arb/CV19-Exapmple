@@ -13,7 +13,6 @@ namespace CV19.Models
         {
             get
             {
-                if (_location != null) return (Point) _location;
 
                 if (ProvinceCounts is null) return default;
 
