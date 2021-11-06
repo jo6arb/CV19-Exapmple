@@ -5,6 +5,8 @@ using System.Windows.Data;
 
 namespace CV19.Infrastructure.Convectors
 {
+    [ValueConversion(typeof(Point), typeof(string))]
+
     internal class LocationPointToStr : Convector
     {
         public override object Convert(object value, Type t, object p, CultureInfo c)

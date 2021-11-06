@@ -1,14 +1,26 @@
 ﻿using System;
 using System.Globalization;
+using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace CV19.Infrastructure.Convectors
 {
-
     /// <summary> Реализация линейного преобразования f(x) = k*x + b</summary>
+    [ValueConversion(typeof(double), typeof(double))]
+
     internal class Linear : Convector
     {
+        [ConstructorArgument("K")] 
         public double K { get; set; } = 1;
-        public double B { get; set; } 
+
+        [ConstructorArgument("B")] 
+        public double B { get; set; }
+
+        public Linear() { }
+
+        public Linear(double k) => this.K = k;
+
+        public Linear(double k, double b) : this(k) => this.B = b;
 
         public override object Convert(object value, Type t, object p, CultureInfo c)
         {

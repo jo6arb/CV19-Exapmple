@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Infrastructure\Commands\Base\" />
-    <Folder Include="Infrastructure\Convectors\" />
     <Folder Include="Models\Decanat\" />
     <Folder Include="Resources\Base\" />
     <Folder Include="Resources\Style\" />
