@@ -59,8 +59,12 @@ namespace CV19.Services
             {
                 var province = row[0].Trim();
                 var country = row[1].Trim(' ', '"');
-                var latitude = double.Parse(row[3] == "" ? "0" : row[3], CultureInfo.InvariantCulture);
-                var longitude = double.Parse(row[4] == "" ? "0" : row[4], CultureInfo.InvariantCulture);
+                NumberStyles style = NumberStyles.AllowDecimalPoint;
+                IFormatProvider formatter = new NumberFormatInfo { NumberDecimalSeparator = "." };
+                double latitude;
+                double longitude;
+                Double.TryParse(row[2], style, formatter, out latitude);
+                Double.TryParse(row[3], style, formatter, out longitude);
                 var counts = row.Skip(5).Select(int.Parse).ToArray();
 
                 yield return (province, country, (latitude, longitude), counts);
