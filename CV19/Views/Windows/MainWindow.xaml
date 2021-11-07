@@ -7,7 +7,6 @@
         xmlns:decanat="clr-namespace:CV19.Models.Decanat"
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:l="clr-namespace:CV19"
-        xmlns:oxy="http://oxyplot.org/wpf"
         Title="{Binding Title}" Height="450" Width="800"
        >
     <Window.DataContext>
