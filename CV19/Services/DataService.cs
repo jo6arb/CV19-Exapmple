@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using CV19.Models;
@@ -14,8 +15,7 @@ namespace CV19.Services
     {
         private const string _dataSourceAddress =
             @"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
-
-
+        
         private static async Task<Stream> GetDataStream()
         {
             var client = new HttpClient();
@@ -27,7 +27,7 @@ namespace CV19.Services
 
         private static IEnumerable<string> GetDataLines()
         {
-            using var dataStream = GetDataStream().Result;
+            using var dataStream = (SynchronizationContext.Current is null ? GetDataStream() : Task.Run(GetDataStream)).Result;
             using var dataReader = new StreamReader(dataStream);
 
             while (!dataReader.EndOfStream)
@@ -59,11 +59,15 @@ namespace CV19.Services
             {
                 var province = row[0].Trim();
                 var country = row[1].Trim(' ', '"');
-                var latitude = double.Parse(row[2], CultureInfo.InvariantCulture);
-                var longtitude = double.Parse(row[3], CultureInfo.InvariantCulture);
-                var counts = row.Skip(4).Select(int.Parse).ToArray();
+                NumberStyles style = NumberStyles.AllowDecimalPoint;
+                IFormatProvider formatter = new NumberFormatInfo { NumberDecimalSeparator = "." };
+                double latitude;
+                double longitude;
+                Double.TryParse(row[2], style, formatter, out latitude);
+                Double.TryParse(row[3], style, formatter, out longitude);
+                var counts = row.Skip(5).Select(int.Parse).ToArray();
 
-                yield return (province, country, (latitude, longtitude), counts);
+                yield return (province, country, (latitude, longitude), counts);
             }
         }
 

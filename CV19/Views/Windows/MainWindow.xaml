@@ -31,7 +31,11 @@
             </StatusBarItem>
         </StatusBar>
         <TabControl>
-           
+
+            <TabItem Header="Статистика">
+                <view:CountryStatisticView  DataContext="{Binding CountryStatistic}"/>
+            </TabItem> 
+
             <TabItem Header="Студенты" Visibility="Collapsed">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -120,6 +124,9 @@
                                   Width="4" />
                 </Grid>
             </TabItem>
-        </TabControl>
+            <TabItem Header="вкладка 1">
+                
+            </TabItem> 
+            </TabControl>
     </DockPanel>
 </Window>

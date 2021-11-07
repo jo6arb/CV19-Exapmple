@@ -1,42 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
-using System.Dynamic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Markup;
 using CV19.Infrastructure.Commands;
 using CV19.Models.Decanat;
 using CV19.ViewModels.Base;
 
 namespace CV19.ViewModels
 {
+    [MarkupExtensionReturnType(typeof(MainvViewModel))]
     internal class MainvViewModel : ViewModel
     {
+        public CountryStatisticViewModel CountryStatistic { get; }
 
         public  ObservableCollection<Group> Groups { get; }
-
-        public object[] CompositeCollection { get; }
-
-        #region SelectedCompositeValue - object - Выбранный непонятный элемент
-
-        /// <summary>
-        /// Выбранный непонятный элемент
-        /// </summary>
-        private object _selectedCompositeValue;
-
-        /// <summary>
-        /// Выбранный непонятный элемент
-        /// </summary>
-        public object SelectedCompositeValue
-        {
-            get => _selectedCompositeValue; set => Set(ref _selectedCompositeValue, value);
-        }
-
-        #endregion
-
+        
         #region SelectedGroup : Group - Выбранная группа
 
         /// <summary>
@@ -83,7 +64,7 @@ namespace CV19.ViewModels
 
         private void OnCloseApplicationCommandExecuted(object p)
         {
-            Application.Current.Shutdown();
+            (RootObject as Window)?.Close();
         }
 
         #endregion
@@ -125,9 +106,9 @@ namespace CV19.ViewModels
 
         #endregion
 
-
         public MainvViewModel()
         {
+            CountryStatistic = new CountryStatisticViewModel(this);
             #region Команды
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
@@ -154,17 +135,6 @@ namespace CV19.ViewModels
             
             Groups = new ObservableCollection<Group>(grosups);
 
-
-            var dataList = new List<object>();
-
-            dataList.Add("Hello");
-            dataList.Add(42);
-            var group = Groups[1];
-            dataList.Add(group);
-            dataList.Add(group.Students[0]);
-
-            CompositeCollection = dataList.ToArray();
-
-        }
+            }
     }
 }
