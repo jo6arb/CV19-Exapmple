@@ -4,12 +4,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Markup;
 using CV19.Infrastructure.Commands;
 using CV19.Models.Decanat;
 using CV19.ViewModels.Base;
 
 namespace CV19.ViewModels
 {
+    [MarkupExtensionReturnType(typeof(MainvViewModel))]
     internal class MainvViewModel : ViewModel
     {
         public CountryStatisticViewModel CountryStatistic { get; }
@@ -62,7 +64,7 @@ namespace CV19.ViewModels
 
         private void OnCloseApplicationCommandExecuted(object p)
         {
-            Application.Current.Shutdown();
+            (RootObject as Window)?.Close();
         }
 
         #endregion
