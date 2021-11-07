@@ -8,11 +8,12 @@
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:l="clr-namespace:CV19"
         xmlns:view="clr-namespace:CV19.Views"
+        xmlns:oxy="http://oxyplot.org/wpf"
         Title="{Binding Title}" Height="450" Width="800"
-        DataContext="{vm:MainvViewModel}">
-    <!--<Window.DataContext>
+       >
+    <Window.DataContext>
         <vm:MainvViewModel />
-    </Window.DataContext>-->
+    </Window.DataContext>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
@@ -124,6 +125,9 @@
                                   Width="4" />
                 </Grid>
             </TabItem>
+            <TabItem Header="вкладка 1">
+                
+            </TabItem> 
             </TabControl>
     </DockPanel>
 </Window>

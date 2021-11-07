@@ -1,12 +1,11 @@
 ﻿<UserControl x:Class="CV19.Views.CountryStatisticView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:l="clr-namespace:CV19"
-             xmlns:common="clr-namespace:CV19.Infrastructure.Common"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
              xmlns:vm="clr-namespace:CV19.ViewModels"
              xmlns:fa5="http://schemas.fontawesome.com/icons/"
+             xmlns:oxy="http://oxyplot.org/wpf"
              xmlns:m="clr-namespace:CV19.Models"
              xmlns:c="clr-namespace:CV19.Infrastructure.Convectors"
              d:DataContext="{d:DesignInstance vm:CountryStatisticViewModel, d:IsDesignTimeCreatable=true}"
@@ -43,30 +42,12 @@
         </GroupBox >
         <GroupBox Grid.Column="1" Header="Информация">
             <Grid>
-                <Grid.Resources>
-                    <c:ToArrayConvector x:Key="ToArrayConvector"/>
-                </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <GridSplitter VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
-                <StackPanel Grid.Row="0">
-                <Slider Name="Value1" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
-                <Slider Name="Value2" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
-                <Slider Name="Value3" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
-                <Slider Name="Value4" Maximum="100" ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
-                </StackPanel>
-                <ListBox Grid.Row="1" ItemsSource="{common:StringToIntArray '1;2;3;4;5' }">
-                    <!--<ListBox.ItemsSource>
-                        <MultiBinding Converter="{StaticResource ToArrayConvector}">
-                            <Binding ElementName="Value1" Path="Value"  />
-                            <Binding ElementName="Value2" Path="Value"  />
-                            <Binding ElementName="Value3" Path="Value"  />
-                            <Binding ElementName="Value4" Path="Value"  />
-                        </MultiBinding>
-                    </ListBox.ItemsSource>-->
-                </ListBox>
+                
             </Grid>
         </GroupBox>
     </Grid>
