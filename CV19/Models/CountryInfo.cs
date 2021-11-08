@@ -14,30 +14,30 @@ namespace CV19.Models
             get
             {
 
-                if (ProvinceCounts is null) return default;
+                if (Provinces is null) return default;
 
-                var averageX = ProvinceCounts.Average(p => p.Location.X);
-                var averageY = ProvinceCounts.Average(p => p.Location.Y);
+                var averageX = Provinces.Average(p => p.Location.X);
+                var averageY = Provinces.Average(p => p.Location.Y);
 
                 return _location = new Point(averageX, averageY);
             }
             set => _location = value;
         }
 
-        public IEnumerable<PlaceInfo> ProvinceCounts { get; set; }
-
-        private ConfirmedCount[] _counts;
-        private IEnumerable<ConfirmedCount> _counts1;
+        public IEnumerable<PlaceInfo> Provinces { get; set; }
+        
+        private IEnumerable<ConfirmedCount> _counts;
 
         public override IEnumerable<ConfirmedCount> Counts
         {
             get
             {
                 if (_counts != null) return _counts;
-                var pointsCount = ProvinceCounts.FirstOrDefault()?.Counts?.Count() ?? 0;
+
+                var pointsCount = Provinces.FirstOrDefault()?.Counts?.Count() ?? 0;
                 if (pointsCount == 0) return Enumerable.Empty<ConfirmedCount>();
 
-                var provincePoints = ProvinceCounts.Select(p => p.Counts.ToArray()).ToArray();
+                var provincePoints = Provinces.Select(p => p.Counts.ToArray()).ToArray();
 
                 var points = new ConfirmedCount[pointsCount];
                 foreach (var province in provincePoints)
@@ -51,7 +51,7 @@ namespace CV19.Models
 
                 return _counts = points;
             }
-            set => _counts1 = value;
+            set => _counts = value;
         }
     }
 }
