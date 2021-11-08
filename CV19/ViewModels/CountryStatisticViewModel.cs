@@ -80,6 +80,7 @@ namespace CV19.ViewModels
         public CountryStatisticViewModel(MainvViewModel mainVM)
         {
             MainVm = mainVM;
+
             _dataService = new DataService();
 
             #region Команды
