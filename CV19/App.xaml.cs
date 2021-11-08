@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Linq;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using CV19.Services;
 using CV19.ViewModels;
@@ -12,12 +13,17 @@ namespace CV19
     public partial class App : Application
     {
 
+        public static bool IsDesignMode { get; private set; } = true;
+
+        
+
         private static IHost _host;
 
         public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
 
         protected override async void OnStartup(StartupEventArgs e)
         {
+            IsDesignMode = false;
             base.OnStartup(e);
             var host = Host;
 
@@ -38,7 +44,14 @@ namespace CV19
         {
             services.AddSingleton<DataService>();
             services.AddSingleton<CountryStatisticViewModel>();
+            
         }
+
+        public static string CurrentDirectory => IsDesignMode 
+            ? Path.GetDirectoryName(GetSourceCodePath()) 
+            : Environment.CurrentDirectory;
+
+        private static string GetSourceCodePath([CallerFilePath] string path = null) => path;
     }
     
 }
