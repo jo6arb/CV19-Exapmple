@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 namespace CV19
 {
 
-    public partial class App : Application
+    public partial class App
     {
 
         public static bool IsDesignMode { get; private set; } = true;
