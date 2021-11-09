@@ -106,9 +106,11 @@ namespace CV19.ViewModels
 
         #endregion
 
-        public MainvViewModel()
+        public MainvViewModel(CountryStatisticViewModel statistic)
         {
-            CountryStatistic = new CountryStatisticViewModel(this);
+            CountryStatistic = statistic;
+            statistic.MainVm = this;
+            /*CountryStatistic = new CountryStatisticViewModel(this);*/
             #region Команды
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);

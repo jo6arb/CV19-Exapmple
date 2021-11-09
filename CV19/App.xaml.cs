@@ -14,9 +14,7 @@ namespace CV19
     {
 
         public static bool IsDesignMode { get; private set; } = true;
-
         
-
         private static IHost _host;
 
         public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
@@ -43,6 +41,8 @@ namespace CV19
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
             services.AddSingleton<DataService>();
+
+            services.AddSingleton<MainvViewModel>();
             services.AddSingleton<CountryStatisticViewModel>();
             
         }

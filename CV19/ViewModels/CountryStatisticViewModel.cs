@@ -15,7 +15,7 @@ namespace CV19.ViewModels
 
         private readonly DataService _dataService;
 
-        private  MainvViewModel MainVm { get; }
+        public  MainvViewModel MainVm { get; internal set; }
 
         #region Countries : IEnumerable<CounryInfo> - Статистика по странам
 
@@ -57,7 +57,7 @@ namespace CV19.ViewModels
         #endregion
 
         /// <summary> Отладочный конструктор, используемый в процессе разработки в визуальном дизайнере </summary>
-        public CountryStatisticViewModel() : this(null)
+        /*public CountryStatisticViewModel() : this(null)
         {
             _countries = Enumerable.Range(1, 10)
                 .Select(i => new CountryInfo
@@ -75,13 +75,12 @@ namespace CV19.ViewModels
                         }).ToArray()
                         
                 }).ToArray();
-        }
+        }*/
 
-        public CountryStatisticViewModel(MainvViewModel mainVM)
+        public CountryStatisticViewModel(DataService dataService)
         {
-            MainVm = mainVM;
-
-            _dataService = new DataService();
+            
+            _dataService = dataService;
 
             #region Команды
 
