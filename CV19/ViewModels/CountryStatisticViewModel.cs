@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
+﻿using System.Collections.Generic;
 using System.Windows.Input;
 using CV19.Infrastructure.Commands;
 using CV19.Models;
 using CV19.Services;
+using CV19.Services.Interfaces;
 using CV19.ViewModels.Base;
 
 namespace CV19.ViewModels
@@ -13,9 +11,9 @@ namespace CV19.ViewModels
     internal class CountryStatisticViewModel : ViewModel
     {
 
-        private readonly DataService _dataService;
+        private readonly IDataService _dataService;
 
-        private  MainvViewModel MainVm { get; }
+        public  MainvViewModel MainVm { get; internal set; }
 
         #region Countries : IEnumerable<CounryInfo> - Статистика по странам
 
@@ -57,7 +55,7 @@ namespace CV19.ViewModels
         #endregion
 
         /// <summary> Отладочный конструктор, используемый в процессе разработки в визуальном дизайнере </summary>
-        public CountryStatisticViewModel() : this(null)
+        /*public CountryStatisticViewModel() : this(null)
         {
             _countries = Enumerable.Range(1, 10)
                 .Select(i => new CountryInfo
@@ -75,12 +73,12 @@ namespace CV19.ViewModels
                         }).ToArray()
                         
                 }).ToArray();
-        }
+        }*/
 
-        public CountryStatisticViewModel(MainvViewModel mainVM)
+        public CountryStatisticViewModel(IDataService dataService)
         {
-            MainVm = mainVM;
-            _dataService = new DataService();
+            
+            _dataService = dataService;
 
             #region Команды
 

@@ -106,9 +106,11 @@ namespace CV19.ViewModels
 
         #endregion
 
-        public MainvViewModel()
+        public MainvViewModel(CountryStatisticViewModel statistic)
         {
-            CountryStatistic = new CountryStatisticViewModel(this);
+            CountryStatistic = statistic;
+            statistic.MainVm = this;
+            /*CountryStatistic = new CountryStatisticViewModel(this);*/
             #region Команды
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
@@ -116,25 +118,7 @@ namespace CV19.ViewModels
             DeleteGroupCommand = new LambdaCommand(OnDeleteGroupCommandExecuted, CanDeleteGroupCommandExecute);
 
             #endregion
-
-            var studentIndex = 1;
-
-            var students = Enumerable.Range(1, 20).Select(i => new Student
-            {
-                Name = $"Name {studentIndex}",
-                Surname = $" Surname {studentIndex}",
-                Patronymic = $"Pathromyc {studentIndex++}",
-                Birthday = DateTime.Now,
-                Rating = 0
-            });
-            var grosups = Enumerable.Range(1, 10).Select(i => new Group
-            {
-                Name = $"Группа {i}",
-                Students = new ObservableCollection<Student>(students)
-            }); 
             
-            Groups = new ObservableCollection<Group>(grosups);
-
-            }
+        }
     }
 }
