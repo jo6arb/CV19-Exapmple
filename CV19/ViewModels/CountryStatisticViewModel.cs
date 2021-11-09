@@ -3,6 +3,7 @@ using System.Windows.Input;
 using CV19.Infrastructure.Commands;
 using CV19.Models;
 using CV19.Services;
+using CV19.Services.Interfaces;
 using CV19.ViewModels.Base;
 
 namespace CV19.ViewModels
@@ -10,7 +11,7 @@ namespace CV19.ViewModels
     internal class CountryStatisticViewModel : ViewModel
     {
 
-        private readonly DataService _dataService;
+        private readonly IDataService _dataService;
 
         public  MainvViewModel MainVm { get; internal set; }
 
@@ -74,7 +75,7 @@ namespace CV19.ViewModels
                 }).ToArray();
         }*/
 
-        public CountryStatisticViewModel(DataService dataService)
+        public CountryStatisticViewModel(IDataService dataService)
         {
             
             _dataService = dataService;

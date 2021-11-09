@@ -20,7 +20,6 @@
     <Folder Include="Models\Decanat\" />
     <Folder Include="Resources\Base\" />
     <Folder Include="Resources\Style\" />
-    <Folder Include="Services\" />
     <Folder Include="ViewModels\Base\" />
   </ItemGroup>
 
