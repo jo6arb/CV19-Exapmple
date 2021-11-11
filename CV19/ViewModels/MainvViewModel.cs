@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using CV19.Infrastructure.Commands;
 using CV19.Models.Decanat;
+using CV19.Services.Interfaces;
 using CV19.ViewModels.Base;
 
 namespace CV19.ViewModels
@@ -14,6 +15,7 @@ namespace CV19.ViewModels
     [MarkupExtensionReturnType(typeof(MainvViewModel))]
     internal class MainvViewModel : ViewModel
     {
+        private readonly IAsyngDataService _asyngData;
         public CountryStatisticViewModel CountryStatistic { get; }
 
         public  ObservableCollection<Group> Groups { get; }
@@ -106,8 +108,9 @@ namespace CV19.ViewModels
 
         #endregion
 
-        public MainvViewModel(CountryStatisticViewModel statistic)
+        public MainvViewModel(CountryStatisticViewModel statistic, IAsyngDataService asyngData)
         {
+            _asyngData = asyngData;
             CountryStatistic = statistic;
             statistic.MainVm = this;
             /*CountryStatistic = new CountryStatisticViewModel(this);*/

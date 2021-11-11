@@ -3,7 +3,6 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using CV19.Services;
-using CV19.Services.Interfaces;
 using CV19.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -39,14 +38,9 @@ namespace CV19
             _host = null;
         }
 
-        public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
-        {
-            services.AddTransient<IDataService, DataService>();
-
-            services.AddSingleton<MainvViewModel>();
-            services.AddSingleton<CountryStatisticViewModel>();
-            
-        }
+        public static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
+                .RegisterServices()
+                .RegisterViewModels();
 
         public static string CurrentDirectory => IsDesignMode 
             ? Path.GetDirectoryName(GetSourceCodePath()) 
