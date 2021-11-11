@@ -9,6 +9,7 @@
         xmlns:l="clr-namespace:CV19"
         xmlns:view="clr-namespace:CV19.Views"
         xmlns:system="clr-namespace:System;assembly=System.Runtime.Extensions"
+        xmlns:components="clr-namespace:CV19.Components"
         Title="{Binding Title}" Height="450" Width="800"
        DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
     
@@ -37,8 +38,14 @@
            
             
             <TabItem Header="Отладка">
-                <TextBlock Text="{x:Static system:Environment.CurrentDirectory}"></TextBlock>
-            </TabItem> 
+                <Grid>
+                    <components:GaugenIndicator VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                                Width="80" Height="80" Value="{Binding FuelCount}" />
+                    <Slider VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="90,0,0,0" Height="30"
+                            Minimum="0" Maximum="100" Value="{Binding FuelCount}"/>
+                </Grid>
+                
+            </TabItem>  
             </TabControl>
     </DockPanel>
 </Window>

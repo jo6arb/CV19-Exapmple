@@ -56,6 +56,20 @@ namespace CV19.ViewModels
 
         #endregion
 
+        #region FuelCount : double - Количество непонятно чего
+
+        /// <summary>Количество непонятно чего</summary>
+        private double _fuelCount;
+
+        /// <summary>Количество непонятно чего</summary>
+        public double FuelCount
+        {
+            get => _fuelCount;
+            set => Set(ref _fuelCount, value);
+        }
+
+        #endregion
+
         #region CloseApplicationCommand - команда закрытия приложения
 
         public ICommand CloseApplicationCommand { get; }
