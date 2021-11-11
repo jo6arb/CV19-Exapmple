@@ -9,6 +9,8 @@
         xmlns:l="clr-namespace:CV19"
         xmlns:view="clr-namespace:CV19.Views"
         xmlns:system="clr-namespace:System;assembly=System.Runtime.Extensions"
+        xmlns:components="clr-namespace:CV19.Components"
+        xmlns:convectors="clr-namespace:CV19.Infrastructure.Convectors"
         Title="{Binding Title}" Height="450" Width="800"
        DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
     
@@ -37,8 +39,26 @@
            
             
             <TabItem Header="Отладка">
-                <TextBlock Text="{x:Static system:Environment.CurrentDirectory}"></TextBlock>
-            </TabItem> 
+                <Grid>
+                    <Grid.Resources>
+                        <convectors:ParemetricMultyplyValueConvector x:Key="Mult" Value="{Binding Coefficient}" /> 
+                    </Grid.Resources>
+                    <components:GaugenIndicator VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                                Width="80" Height="80">
+                        <components:GaugenIndicator.Value>
+                            <Binding Path="FuelCount" Converter="{StaticResource Mult}" />
+                        </components:GaugenIndicator.Value>
+                    </components:GaugenIndicator>
+                    <Slider VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="90,0,0,0" Height="30"
+                            Minimum="0" Maximum="100" Value="{Binding FuelCount}"
+                            ToolTip="{Binding FuelCount}"/>
+                    <Slider VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="90,40,0,0"
+                            Minimum="-10" Maximum="10" SmallChange="0.1"
+                            Value="{Binding Coefficient}"
+                            ToolTip="{Binding Coefficient}"/>
+                </Grid>
+                
+            </TabItem>  
             </TabControl>
     </DockPanel>
 </Window>
