@@ -15,9 +15,25 @@ namespace CVConsoleTest
 
             thread.Start();
 
+            var count = 5;
+            var msg = "Gbie";
+            var timeout = 150;
+
+            new Thread(() => PrintMethod(msg,count , timeout)) { IsBackground = true}.Start();
+
             CheckThread();
 
             Console.ReadLine();
+        }
+
+        private static void PrintMethod(string Message, int Count, int Timeout)
+        {
+            for (var i = 0; i < Count; i++)
+            {
+                Console.WriteLine(Message);
+                Thread.Sleep(Timeout);
+            }
+
         }
 
         private static void ThreadMethod()
