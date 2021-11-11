@@ -70,6 +70,20 @@ namespace CV19.ViewModels
 
         #endregion
 
+        #region Coefficiend : double - Коеффициент получаемого значения
+
+        /// <summary>Коеффициент получаемого значения</summary>
+        private double _Coefficient = 1;
+
+        /// <summary>Коеффициент получаемого значения</summary>
+        public double Coefficient
+        {
+            get => _Coefficient;
+            set => Set(ref _Coefficient, value);
+        }
+
+        #endregion
+
         #region CloseApplicationCommand - команда закрытия приложения
 
         public ICommand CloseApplicationCommand { get; }
