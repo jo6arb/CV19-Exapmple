@@ -41,7 +41,7 @@
             <TabItem Header="Отладка">
                 <Grid>
                     <Grid.Resources>
-                        <convectors:ParemetricMultyplyValueConvector x:Key="Mult" Value="{Binding Coefficient, Converter={convectors:DebugConvector}}" /> 
+                        <convectors:ParemetricMultyplyValueConvector x:Key="Mult" Value="{Binding Coefficient}" /> 
                     </Grid.Resources>
                     <components:GaugenIndicator VerticalAlignment="Top" HorizontalAlignment="Left" 
                                                 Width="80" Height="80">
