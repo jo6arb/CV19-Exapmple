@@ -6,25 +6,26 @@ namespace CVConsoleTest
 {
     internal class Program
     {
+        private static bool _threadUp = true;
         static void Main(string[] args)
         {
-            /*Thread.CurrentThread.Name = "Main Thread";
+            Thread.CurrentThread.Name = "Main Thread";
 
-            var thread = new Thread(ThreadMethod);
-            thread.Name = "Other thread";
-            thread.IsBackground = true;
+            var clockThread = new Thread(ThreadMethod);
+            clockThread.Name = "Other thread";
+            clockThread.IsBackground = true;
+            clockThread.Priority = ThreadPriority.AboveNormal;
+            clockThread.Start(42);
 
-            thread.Start();
+            /*  var count = 5;
+              var msg = "Gbie";
+              var timeout = 150;
 
-            var count = 5;
-            var msg = "Gbie";
-            var timeout = 150;
-
-            new Thread(() => PrintMethod(msg,count , timeout)) { IsBackground = true}.Start();
+              new Thread(() => PrintMethod(msg,count , timeout)) { IsBackground = true}.Start();
 
 
 
-            CheckThread();*/
+              CheckThread();*/
 
             var values = new List<int>();
 
@@ -45,6 +46,13 @@ namespace CVConsoleTest
             foreach (var thread in threads)
                thread.Start();
 
+
+            if (clockThread.Join(100))
+            {
+                clockThread.Abort();
+                clockThread.Interrupt();
+            }
+
             Console.ReadLine();
             Console.WriteLine(String.Join(",", values));
             Console.ReadLine();
@@ -60,9 +68,18 @@ namespace CVConsoleTest
 
         }
 
-        private static void ThreadMethod()
+        private static void ThreadMethod(object parametr)
         {
-            CheckThread();
+            var value = (int) parametr;
+            Console.WriteLine(value);
+
+            while (_threadUp)
+            {
+                Thread.Sleep(100);
+                Console.Title = DateTime.Now.ToString();
+            }
+                
+
         }
 
         private static void CheckThread()
