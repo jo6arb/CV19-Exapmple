@@ -2,7 +2,7 @@
 
 namespace CV19.ViewModels
 {
-    internal static class Registrator : 
+    internal static class Registrator
     {
         public static IServiceCollection RegisterViewModels(this IServiceCollection services)
         {

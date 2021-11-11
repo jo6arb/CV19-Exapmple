@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
@@ -58,6 +56,20 @@ namespace CV19.ViewModels
 
         #endregion
 
+        #region DataValue : string - Результат длительной асинхнонной операции
+
+        /// <summary>Результат длительной асинхнонной операции</summary>
+        private string _DataValue;
+
+        /// <summary>Результат длительной асинхнонной операции</summary>
+        public string DataValue
+        {
+            get => _DataValue;
+            private set => Set(ref _DataValue, value);
+        }
+
+        #endregion
+
         #region CloseApplicationCommand - команда закрытия приложения
 
         public ICommand CloseApplicationCommand { get; }
@@ -108,6 +120,46 @@ namespace CV19.ViewModels
 
         #endregion
 
+        #region Command StartProccessCommand - Запуск процесса
+
+        /// <summary>Запуск процесса</summary>
+        private ICommand _StartProccessCommand;
+
+        /// <summary>Запуск процесса</summary>
+        public ICommand StartProccessCommand => _StartProccessCommand
+            ??= new LambdaCommand(OnStartProcessCommandExecuted, CanStartProcessCommandExecute);
+
+        /// <summary>Проверка возможности выполнения - Запуск процесса</summary>
+        private static bool CanStartProcessCommandExecute(object p) => true;
+
+        /// <summary>Логика выполнения - Запуск процесса</summary>
+        private void OnStartProcessCommandExecuted(object p)
+        {
+            DataValue = _asyngData.GetResult(DateTime.Now);
+        }
+
+        #endregion
+
+        #region Command StopProcessCommand - Остановка процесса
+
+        /// <summary>Остановка процесса</summary>
+        private ICommand _StopProcessCommand;
+
+        /// <summary>Остановка процесса</summary>
+        public ICommand StopProcessCommand => _StopProcessCommand
+            ??= new LambdaCommand(OnStopProcessCommandExecuted, CanStopProcessCommandExecute);
+
+        /// <summary>Проверка возможности выполнения - Остановка процесса</summary>
+        private static bool CanStopProcessCommandExecute(object p) => true;
+
+        /// <summary>Логика выполнения - Остановка процесса</summary>
+        private void OnStopProcessCommandExecuted(object p)
+        {
+            
+        }
+
+        #endregion
+
         public MainvViewModel(CountryStatisticViewModel statistic, IAsyngDataService asyngData)
         {
             _asyngData = asyngData;
@@ -121,7 +173,7 @@ namespace CV19.ViewModels
             DeleteGroupCommand = new LambdaCommand(OnDeleteGroupCommandExecuted, CanDeleteGroupCommandExecute);
 
             #endregion
-            
+
         }
     }
 }
