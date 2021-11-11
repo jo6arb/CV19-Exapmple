@@ -25,8 +25,7 @@ namespace CV19.ViewModels.Base
             return true;
         }
 
-
-
+        
         public override object ProvideValue(IServiceProvider sp)
         {
             var valueTargetServce = sp.GetService(typeof(IProvideValueTarget)) as IProvideValueTarget;
