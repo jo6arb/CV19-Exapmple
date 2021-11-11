@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace CVConsoleTest
@@ -7,7 +8,7 @@ namespace CVConsoleTest
     {
         static void Main(string[] args)
         {
-            Thread.CurrentThread.Name = "Main Thread";
+            /*Thread.CurrentThread.Name = "Main Thread";
 
             var thread = new Thread(ThreadMethod);
             thread.Name = "Other thread";
@@ -21,8 +22,31 @@ namespace CVConsoleTest
 
             new Thread(() => PrintMethod(msg,count , timeout)) { IsBackground = true}.Start();
 
-            CheckThread();
 
+
+            CheckThread();*/
+
+            var values = new List<int>();
+
+            var threads = new Thread[10];
+            object lock_object = new object();
+            for (var i = 0; i < threads.Length; i++)
+            {
+                threads[i] = new Thread(() =>
+                {
+                    for (var j = 0; j < 10; j++)
+                        lock (lock_object)
+                            values.Add(Thread.CurrentThread.ManagedThreadId);
+                });
+            }
+
+
+
+            foreach (var thread in threads)
+               thread.Start();
+
+            Console.ReadLine();
+            Console.WriteLine(String.Join(",", values));
             Console.ReadLine();
         }
 
