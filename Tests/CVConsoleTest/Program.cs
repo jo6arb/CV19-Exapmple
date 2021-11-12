@@ -12,6 +12,10 @@ namespace CVConsoleTest
         private static bool _threadUp = true;
         static void Main(string[] args)
         {
+
+            WebServerTest.Run();
+            return;
+
             //Thread.CurrentThread.Name = "Main Thread";
 
             //var clockThread = new Thread(ThreadMethod);

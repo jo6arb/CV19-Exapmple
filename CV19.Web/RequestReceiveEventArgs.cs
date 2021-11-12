@@ -5,8 +5,7 @@ namespace CV19.Web
 {
     public class WebServer
     {
-
-        private event  EventHandler<RequestReceiverEventArgs> RequestReceived;
+        public event  EventHandler<RequestReceiverEventArgs> RequestReceived;
         /*private TcpListener _listener = new TcpListener(new IPEndPoint(IPAddress.Any, 8080));*/
         private HttpListener _Listener;
         private readonly int _port;
@@ -26,8 +25,8 @@ namespace CV19.Web
             {
                 if(_enabled) return;
                 _Listener = new HttpListener();
-                _Listener.Prefixes.Add($"http://*:{_port}");
-                _Listener.Prefixes.Add($"http://+:{_port}");
+                _Listener.Prefixes.Add($"http://*:{_port}/");
+                _Listener.Prefixes.Add($"http://+:{_port}/");
                 _enabled = true;
             }
             ListenAsync();
