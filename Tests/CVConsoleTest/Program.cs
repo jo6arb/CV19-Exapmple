@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
+using System.Threading.Channels;
 
 namespace CVConsoleTest
 {
@@ -9,53 +11,86 @@ namespace CVConsoleTest
         private static bool _threadUp = true;
         static void Main(string[] args)
         {
-            Thread.CurrentThread.Name = "Main Thread";
+            //Thread.CurrentThread.Name = "Main Thread";
 
-            var clockThread = new Thread(ThreadMethod);
-            clockThread.Name = "Other thread";
-            clockThread.IsBackground = true;
-            clockThread.Priority = ThreadPriority.AboveNormal;
-            clockThread.Start(42);
+            //var clockThread = new Thread(ThreadMethod);
+            //clockThread.Name = "Other thread";
+            //clockThread.IsBackground = true;
+            //clockThread.Priority = ThreadPriority.AboveNormal;
+            //clockThread.Start(42);
 
-            /*  var count = 5;
-              var msg = "Gbie";
-              var timeout = 150;
+            ///*  var count = 5;
+            //  var msg = "Gbie";
+            //  var timeout = 150;
 
-              new Thread(() => PrintMethod(msg,count , timeout)) { IsBackground = true}.Start();
+            //  new Thread(() => PrintMethod(msg,count , timeout)) { IsBackground = true}.Start();
 
 
 
-              CheckThread();*/
+            //  CheckThread();*/
 
-            var values = new List<int>();
+            //var values = new List<int>();
 
-            var threads = new Thread[10];
-            object lock_object = new object();
-            for (var i = 0; i < threads.Length; i++)
+            //var threads = new Thread[10];
+            //object lock_object = new object();
+            //for (var i = 0; i < threads.Length; i++)
+            //{
+            //    threads[i] = new Thread(() =>
+            //    {
+            //        for (var j = 0; j < 10; j++)
+            //            lock (lock_object)
+            //                values.Add(Thread.CurrentThread.ManagedThreadId);
+            //    });
+            //}
+
+
+
+            //foreach (var thread in threads)
+            //   thread.Start();
+
+
+            //if (clockThread.Join(100))
+            //{
+            //    clockThread.Abort();
+            //    clockThread.Interrupt();
+            //}
+
+            //Mutex mutex = new Mutex();
+            //Semaphore semaphore = new Semaphore(0,10);
+            //semaphore.WaitOne();
+
+            //semaphore.Release();
+
+            ManualResetEvent manual = new ManualResetEvent(false);
+            AutoResetEvent auto = new AutoResetEvent(false);
+
+            EventWaitHandle threadHandle = manual;
+
+            var testThreads = new Thread[10];
+            for (var i = 0; i < testThreads.Length; i++)
             {
-                threads[i] = new Thread(() =>
+                testThreads[i] = new Thread(() =>
                 {
-                    for (var j = 0; j < 10; j++)
-                        lock (lock_object)
-                            values.Add(Thread.CurrentThread.ManagedThreadId);
+                    var localI = i;
+                    Console.WriteLine($"Поток id:{Thread.CurrentThread.ManagedThreadId} - стартовал");
+
+                    threadHandle.WaitOne();
+
+                    Console.WriteLine($"Value: {localI}");
+                    Console.WriteLine($"Поток id:{Thread.CurrentThread.ManagedThreadId} - завершился");
+                    threadHandle.Set();
                 });
+                testThreads[i].Start();
             }
 
+            Console.WriteLine("Готов к запуску потоков!");
+            Console.ReadLine();
 
-
-            foreach (var thread in threads)
-               thread.Start();
-
-
-            if (clockThread.Join(100))
-            {
-                clockThread.Abort();
-                clockThread.Interrupt();
-            }
+            threadHandle.Set();
 
             Console.ReadLine();
-            Console.WriteLine(String.Join(",", values));
-            Console.ReadLine();
+            /*Console.WriteLine(String.Join(",", values));
+            Console.ReadLine();*/
         }
 
         private static void PrintMethod(string Message, int Count, int Timeout)
