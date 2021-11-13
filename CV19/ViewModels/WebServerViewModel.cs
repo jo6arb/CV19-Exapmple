@@ -13,13 +13,15 @@ namespace CV19.ViewModels
         private readonly IWebServerService _server;
 
         #region Enabled
-
-        public bool _Enabled;
-
+        
         public bool Enabled
         {
-            get => _Enabled;
-            set => Set(ref _Enabled, value);
+            get => _server.Enabled;
+            set
+            {
+                _server.Enabled = value;
+                OnPropertyChanged();
+            }
         }
 
         #endregion
@@ -33,10 +35,11 @@ namespace CV19.ViewModels
 
         private void OnStartCommandExecuted(object p)
         {
-            Enabled = true;
+            _server.Start();
+            OnPropertyChanged(nameof(Enabled));
         }
 
-        private bool CanStartCommandExecute(object p) => !_Enabled;
+        private bool CanStartCommandExecute(object p) => Enabled;
 
         #endregion
 
@@ -47,11 +50,12 @@ namespace CV19.ViewModels
         public ICommand StopCommand => _stopCommand
                                        ?? new LambdaCommand(OnStopCommandExecute, CanStopCommandExecute);
 
-        private  bool CanStopCommandExecute(object p) => _Enabled;
+        private  bool CanStopCommandExecute(object p) => Enabled;
 
         private void OnStopCommandExecute(object p)
         {
-            Enabled = false;
+            _server.Stop();
+            OnPropertyChanged(nameof(Enabled));
         }
 
         #endregion
