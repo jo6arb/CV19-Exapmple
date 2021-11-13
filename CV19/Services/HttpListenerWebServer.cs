@@ -1,19 +1,31 @@
-﻿using System;
+﻿using System.IO;
 using CV19.Services.Interfaces;
+using CV19.Web;
 
 namespace CV19.Services
 {
     internal class HttpListenerWebServer : IWebServerService
     {
-        public bool Enabled { get; set; }
-        public void Start()
+        private readonly WebServer _server = new WebServer(8080);
+
+        public bool Enabled
         {
-            throw new NotImplementedException();
+            get => _server.Enabled;
+            set => _server.Enabled = value;
         }
 
-        public void Stop()
+        public void Start() => _server.Start();
+
+        public void Stop() => _server.Stop();
+
+        public HttpListenerWebServer()
         {
-            throw new NotImplementedException();
+            _server.RequestReceived += OnRequestReceived;
+        }
+
+        private void OnRequestReceived(object? sender, RequestReceiverEventArgs e)
+        {
+            using (var writer = new StreamWriter(e.Context.Response.OutputStream)) writer.WriteLine("CV19 Application");
         }
     }
 }

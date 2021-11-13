@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using CV19.Infrastructure.Commands;
 using CV19.Services.Interfaces;
 using CV19.ViewModels.Base;
@@ -39,7 +36,7 @@ namespace CV19.ViewModels
             OnPropertyChanged(nameof(Enabled));
         }
 
-        private bool CanStartCommandExecute(object p) => Enabled;
+        private bool CanStartCommandExecute(object p) => !Enabled;
 
         #endregion
 
