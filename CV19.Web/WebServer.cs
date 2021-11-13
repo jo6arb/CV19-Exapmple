@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace CV19.Web
 {
@@ -51,22 +52,26 @@ namespace CV19.Web
 
             listener.Start();
 
-            
+            HttpListenerContext context = null;
+
+
 
             while (_enabled)
             {
-                var context = await listener.GetContextAsync().ConfigureAwait(false);
-                ProcessRequest(context);
-            }
+                var getComContextTask = listener.GetContextAsync();
+                if (context !=null)
+                    ProcessRequestAsync(context);
+                context = await getComContextTask.ConfigureAwait(false);
+               }
                
             
             listener.Stop();
 
         }
 
-        private void ProcessRequest(HttpListenerContext context)
+        private async void ProcessRequestAsync(HttpListenerContext context)
         {
-            RequestReceived?.Invoke(this, new RequestReceiverEventArgs(context));
+            await Task.Run(() => { RequestReceived?.Invoke(this, new RequestReceiverEventArgs(context)); });
         }
     }
 
