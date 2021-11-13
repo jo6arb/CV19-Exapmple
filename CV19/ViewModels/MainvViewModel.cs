@@ -16,6 +16,7 @@ namespace CV19.ViewModels
     {
         private readonly IAsyngDataService _asyngData;
         public CountryStatisticViewModel CountryStatistic { get; }
+        public WebServerViewModel WebServer { get; }
 
         public  ObservableCollection<Group> Groups { get; }
         
@@ -166,10 +167,11 @@ namespace CV19.ViewModels
 
         #endregion
 
-        public MainvViewModel(CountryStatisticViewModel statistic, IAsyngDataService asyngData)
+        public MainvViewModel(CountryStatisticViewModel statistic, IAsyngDataService asyngData, WebServerViewModel webServer)
         {
             _asyngData = asyngData;
             CountryStatistic = statistic;
+            WebServer = webServer;
             statistic.MainVm = this;
             /*CountryStatistic = new CountryStatisticViewModel(this);*/
             #region Команды
