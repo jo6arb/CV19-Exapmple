@@ -8,6 +8,7 @@ namespace CV19.ViewModels
         {
             services.AddSingleton<MainvViewModel>();
             services.AddSingleton<CountryStatisticViewModel>();
+            services.AddSingleton<WebServerViewModel>();
             return services;
         }
     }
