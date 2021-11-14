@@ -24,9 +24,10 @@ namespace CV19.Services
             _server.RequestReceived += OnRequestReceived;
         }
 
-        private void OnRequestReceived(object? sender, RequestReceiverEventArgs e)
+        private void OnRequestReceived(object sender, RequestReceiverEventArgs e)
         {
-            using (var writer = new StreamWriter(e.Context.Response.OutputStream)) writer.WriteLine("CV19 Application" + DateTime.Now);
+            using var writer = new StreamWriter(e.Context.Response.OutputStream);
+            writer.WriteLine("CV19 Application" + DateTime.Now);
         }
     }
 }
