@@ -10,7 +10,10 @@
         
     </Window.Resources>
     <Grid>
-        <Button Style="{DynamicResource ButtonStyle1}" Content="Button" HorizontalAlignment="Left" Margin="256,110,0,0" VerticalAlignment="Top"/>
+        <Button  HorizontalAlignment="Center" VerticalContentAlignment="Center"
+                 Content="Start"
+                 Padding="30,20" />
+        <TextBlock />
 
     </Grid>
 </Window>
