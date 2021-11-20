@@ -19,7 +19,6 @@
     <Folder Include="Infrastructure\Common\" />
     <Folder Include="Models\Decanat\" />
     <Folder Include="Resources\Base\" />
-    <Folder Include="Resources\Style\" />
     <Folder Include="ViewModels\Base\" />
   </ItemGroup>
 
