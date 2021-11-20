@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CV19"
         mc:Ignorable="d"
-        Style="{StaticResource CV19WindowStyle}"
+        Style="{StaticResource Cv19WindowStyle}"
         Title="TestWindow" Height="450" Width="800">
     <Grid>
-        
+        <Button VerticalAlignment="top" HorizontalAlignment="Left" Margin="30,40" Padding="20,5"> hello</Button>
+        <Canvas>
+            <Ellipse Canvas.Left="153" Canvas.Bottom="20" StrokeThickness="1" Stroke="Blue" Fill="Red"
+                     Width="30" Height="20" Canvas.Top="188"></Ellipse>
+        </Canvas>
     </Grid>
 </Window>
