@@ -25,7 +25,7 @@ namespace CV19.ViewModels
 
         #region StartCommand
 
-        private ICommand _startCommand;
+        private readonly ICommand _startCommand;
 
         public ICommand StartCommand => _startCommand
                                         ?? new LambdaCommand(OnStartCommandExecuted, CanStartCommandExecute);
@@ -57,6 +57,10 @@ namespace CV19.ViewModels
 
         #endregion
 
-        public WebServerViewModel(IWebServerService server) => _server = server;
+        public WebServerViewModel(IWebServerService server, ICommand startCommand)
+        {
+            _server = server;
+            _startCommand = startCommand;
+        }
     }
 }
