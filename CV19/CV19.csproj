@@ -21,7 +21,6 @@
   <ItemGroup>
     <Folder Include="Infrastructure\Commands\Base\" />
     <Folder Include="Infrastructure\Common\" />
-    <Folder Include="Infrastructure\Extensions\" />
     <Folder Include="Models\Decanat\" />
     <Folder Include="Resources\Base\" />
     <Folder Include="ViewModels\Base\" />
