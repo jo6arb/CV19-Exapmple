@@ -10,16 +10,9 @@ namespace CV19.Infrastructure.Behaviours
 {
     class ResizeWindowPanel : Behavior<Panel>
     {
-        protected override void OnAttached()
-        {
-            AssociatedObject.MouseLeftButtonDown += OnMouseDown;
-            
-        }
+        protected override void OnAttached() => AssociatedObject.MouseLeftButtonDown += OnMouseDown;
 
-        protected override void OnDetaching()
-        {
-            AssociatedObject.MouseLeftButtonDown += OnMouseDown;
-        }
+        protected override void OnDetaching() => AssociatedObject.MouseLeftButtonDown -= OnMouseDown;
 
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
