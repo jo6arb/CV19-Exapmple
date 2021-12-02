@@ -7,16 +7,16 @@ namespace CV19.ViewModels
 {
     internal class WebServerViewModel : ViewModel
     {
-        private readonly IWebServerService _server;
+        private readonly IWebServerService _Server;
 
         #region Enabled
-        
+
         public bool Enabled
         {
-            get => _server.Enabled;
+            get => _Server.Enabled;
             set
             {
-                _server.Enabled = value;
+                _Server.Enabled = value;
                 OnPropertyChanged();
             }
         }
@@ -25,43 +25,38 @@ namespace CV19.ViewModels
 
         #region StartCommand
 
-        private readonly ICommand _startCommand;
+        private ICommand _StartCommand;
 
-        public ICommand StartCommand => _startCommand
-                                        ?? new LambdaCommand(OnStartCommandExecuted, CanStartCommandExecute);
+        public ICommand StartCommand => _StartCommand
+            ??= new LambdaCommand(OnStartCommandExecuted, CanStartCommandExecute);
+
+        private bool CanStartCommandExecute(object p) => !Enabled;
 
         private void OnStartCommandExecuted(object p)
         {
-            _server.Start();
+            _Server.Start();
             OnPropertyChanged(nameof(Enabled));
         }
-
-        private bool CanStartCommandExecute(object p) => !Enabled;
 
         #endregion
 
         #region StopCommand
 
-        private readonly ICommand _stopCommand;
+        private ICommand _StopCommand;
 
-        public ICommand StopCommand => _stopCommand
-                                       ?? new LambdaCommand(OnStopCommandExecute, CanStopCommandExecute);
+        public ICommand StopCommand => _StopCommand
+            ??= new LambdaCommand(OnStopCommandExecuted, CanStopCommandExecute);
 
-        private  bool CanStopCommandExecute(object p) => Enabled;
+        private bool CanStopCommandExecute(object p) => Enabled;
 
-        private void OnStopCommandExecute(object p)
+        private void OnStopCommandExecuted(object p)
         {
-            _server.Stop();
+            _Server.Stop();
             OnPropertyChanged(nameof(Enabled));
         }
 
         #endregion
 
-        public WebServerViewModel(IWebServerService server, ICommand startCommand, ICommand stopCommand)
-        {
-            _server = server;
-            _startCommand = startCommand;
-            _stopCommand = stopCommand;
-        }
+        public WebServerViewModel(IWebServerService Server) => _Server = Server;
     }
 }

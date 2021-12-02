@@ -10,6 +10,7 @@
         xmlns:view="clr-namespace:CV19.Views"
         xmlns:system="clr-namespace:System;assembly=System.Runtime.Extensions"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        Style="{StaticResource Cv19WindowStyle}"
         Title="{Binding Title}" Height="450" Width="800"
        DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
     <i:Interaction.Triggers>
