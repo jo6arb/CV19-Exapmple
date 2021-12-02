@@ -42,7 +42,7 @@ namespace CV19.ViewModels
 
         #region StopCommand
 
-        private ICommand _stopCommand;
+        private readonly ICommand _stopCommand;
 
         public ICommand StopCommand => _stopCommand
                                        ?? new LambdaCommand(OnStopCommandExecute, CanStopCommandExecute);
@@ -57,10 +57,11 @@ namespace CV19.ViewModels
 
         #endregion
 
-        public WebServerViewModel(IWebServerService server, ICommand startCommand)
+        public WebServerViewModel(IWebServerService server, ICommand startCommand, ICommand stopCommand)
         {
             _server = server;
             _startCommand = startCommand;
+            _stopCommand = stopCommand;
         }
     }
 }
