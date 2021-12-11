@@ -15,11 +15,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\WindowIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Infrastructure\Commands\Base\" />
     <Folder Include="Infrastructure\Common\" />
     <Folder Include="Models\Decanat\" />
     <Folder Include="Resources\Base\" />
-    <Folder Include="Resources\Style\" />
     <Folder Include="ViewModels\Base\" />
   </ItemGroup>
 
@@ -33,6 +36,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CV19.Web\CV19.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\WindowIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
