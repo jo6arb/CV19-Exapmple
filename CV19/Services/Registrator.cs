@@ -10,6 +10,8 @@ namespace CV19.Services
             services.AddSingleton<IDataService, DataService>();
             services.AddTransient<IAsyngDataService, AsyncDataService>();
             services.AddTransient<IWebServerService, HttpListenerWebServer>();
+            services.AddSingleton<StudentRepository>();
+            services.AddSingleton<GroupRepository>();
 
             return services;
         }
