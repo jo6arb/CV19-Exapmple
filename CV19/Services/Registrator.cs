@@ -12,6 +12,7 @@ namespace CV19.Services
             services.AddTransient<IWebServerService, HttpListenerWebServer>();
             services.AddSingleton<StudentRepository>();
             services.AddSingleton<GroupRepository>();
+            services.AddSingleton<StudentsManager>();
 
             return services;
         }
