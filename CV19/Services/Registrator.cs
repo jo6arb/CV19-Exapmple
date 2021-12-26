@@ -14,6 +14,8 @@ namespace CV19.Services
             services.AddSingleton<GroupRepository>();
             services.AddSingleton<StudentsManager>();
 
+            services.AddTransient<IUserDialogService, WindowsUserDialogService>();
+
             return services;
         }
     }

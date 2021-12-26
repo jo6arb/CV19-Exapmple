@@ -5,6 +5,7 @@ using System.Windows.Input;
 using CV19.Infrastructure.Commands;
 using CV19.Models.Decanat;
 using CV19.Services;
+using CV19.Services.Interfaces;
 using CV19.ViewModels.Base;
 using CV19.Views.Windows;
 
@@ -13,6 +14,7 @@ namespace CV19.ViewModels
     class StudentManagementViewModel : ViewModel
     {
         private readonly StudentsManager _studentsManager;
+        private readonly IUserDialogService _UserDialog;
 
         public IEnumerable<Student> Students => _studentsManager.Students;
 
@@ -66,21 +68,15 @@ namespace CV19.ViewModels
 
         private void OnEditStudentCommandExecuted(object p)
         {
-            var student = (Student)p;
-
-            var dlg = new StudentEditorWindow()
+            if (_UserDialog.Edit(p))
             {
-                FirstName = student.Name,
-                LastName = student.Surname,
-                Patronymic = student.Patronymic,
-                Rating = student.Rating,
-                Birthday = student.Birthday
-            };
-
-            if (dlg.ShowDialog() == true)
-                MessageBox.Show("Пользователь выполнил редактирование");
+                _studentsManager.Update((Student) p);
+                _UserDialog.ShowInfo("Студент отредактирован", "Менеджер студентов");
+            }
             else
-                MessageBox.Show("Пользователь Отказался редактироватть");
+            {
+                _UserDialog.ShowWarning("Отказ редактирования", "Менеджер студентов");
+            }
 
         }
 
@@ -101,13 +97,29 @@ namespace CV19.ViewModels
         /// <summary>Логика выполнения - Создание нового студента</summary>
         private void OnCreateNewStudentCommandExecuted(object p)
         {
-            var group = (Group)p;
+            var group = (Group) p;
+
+            var student = new Student();
+
+            if (!_UserDialog.Edit(student) || _studentsManager.Create(student, group.Name))
+            {
+                OnPropertyChanged(nameof(Students));
+                return;
+            }
+
+            if(_UserDialog.Confirm("Не удалось создать студента, повторить?", "Менеджер студентов"))
+                        OnCreateNewStudentCommandExecuted(p);
+            
         }
 
         #endregion
 
         #endregion
 
-        public StudentManagementViewModel(StudentsManager studentsManager) => _studentsManager = studentsManager;
+        public StudentManagementViewModel(StudentsManager studentsManager, IUserDialogService UserDialog)
+        {
+            _studentsManager = studentsManager;
+            _UserDialog = UserDialog;
+        }
     }
 }

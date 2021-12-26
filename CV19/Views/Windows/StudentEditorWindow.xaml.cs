@@ -5,20 +5,26 @@ using System.Windows;
 namespace CV19.Views.Windows
 {
 
-        #region FirstName
-
     public partial class StudentEditorWindow : Window
     {
 
-        public static DependencyProperty NameProperty = DependencyProperty.Register(
-            nameof(FirstName),
-            typeof(string),
-            typeof(StudentManagementWindow),
-            new PropertyMetadata(null));
+        #region FirstName : String - Имя
 
-        public string FirstName { get; set; }
+        /// <summary>Имя</summary>
+        public static readonly DependencyProperty FirstNameProperty =
+            DependencyProperty.Register(
+                nameof(FirstName),
+                typeof(String),
+                typeof(StudentEditorWindow),
+                new PropertyMetadata(default(String)));
+
+        /// <summary>Имя</summary>
+        //[Category("")]
+        [Description("$summary$")]
+        public String FirstName { get => (String) GetValue(FirstNameProperty); set => SetValue(FirstNameProperty, value); }
 
         #endregion
+
 
         #region LastName : String - Фамилия
 
