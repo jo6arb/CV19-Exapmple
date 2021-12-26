@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using CV19.Models.Decanat;
 using CV19.Services.Interfaces;
@@ -8,6 +9,7 @@ namespace CV19.Services
 {
     class WindowsUserDialogService : IUserDialogService
     {
+        private static Window ActiveWindow = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);
         public bool Edit(object item)
         {
             if (item is null) throw new ArgumentNullException(nameof(item));
@@ -41,7 +43,8 @@ namespace CV19.Services
                 LastName = student.Surname,
                 Patronymic = student.Patronymic,
                 Rating = student.Rating,
-                Birthday = student.Birthday
+                Birthday = student.Birthday,
+                Owner = ActiveWindow
             };
 
             if (dlg.ShowDialog() != true) return false;
