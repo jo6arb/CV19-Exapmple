@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
 using CV19.Infrastructure.Commands;
 using CV19.Models.Decanat;
+using CV19.Services.Interfaces;
 using CV19.ViewModels.Base;
 
 namespace CV19.ViewModels
@@ -14,7 +14,9 @@ namespace CV19.ViewModels
     [MarkupExtensionReturnType(typeof(MainvViewModel))]
     internal class MainvViewModel : ViewModel
     {
+        private readonly IAsyngDataService _asyngData;
         public CountryStatisticViewModel CountryStatistic { get; }
+        public WebServerViewModel WebServer { get; }
 
         public  ObservableCollection<Group> Groups { get; }
         
@@ -53,6 +55,20 @@ namespace CV19.ViewModels
 
         /// <summary>Статус программы</summary>
         public string Status { get => _status ; set => Set(ref _status, value);}
+
+        #endregion
+
+        #region DataValue : string - Результат длительной асинхнонной операции
+
+        /// <summary>Результат длительной асинхнонной операции</summary>
+        private string _DataValue;
+
+        /// <summary>Результат длительной асинхнонной операции</summary>
+        public string DataValue
+        {
+            get => _DataValue;
+            private set => Set(ref _DataValue, value);
+        }
 
         #endregion
 
@@ -106,9 +122,56 @@ namespace CV19.ViewModels
 
         #endregion
 
-        public MainvViewModel(CountryStatisticViewModel statistic)
+        #region Command StartProccessCommand - Запуск процесса
+
+        /// <summary>Запуск процесса</summary>
+        private ICommand _StartProccessCommand;
+
+        /// <summary>Запуск процесса</summary>
+        public ICommand StartProccessCommand => _StartProccessCommand
+            ??= new LambdaCommand(OnStartProcessCommandExecuted, CanStartProcessCommandExecute);
+
+        /// <summary>Проверка возможности выполнения - Запуск процесса</summary>
+        private static bool CanStartProcessCommandExecute(object p) => true;
+
+        /// <summary>Логика выполнения - Запуск процесса</summary>
+        private void OnStartProcessCommandExecuted(object p)
         {
+            new Thread(ComputeValue).Start();
+        }
+
+        private void ComputeValue()
+        {
+            DataValue = _asyngData.GetResult(DateTime.Now);
+        }
+
+        #endregion
+
+        #region Command StopProcessCommand - Остановка процесса
+
+        /// <summary>Остановка процесса</summary>
+        private ICommand _StopProcessCommand;
+
+        /// <summary>Остановка процесса</summary>
+        public ICommand StopProcessCommand => _StopProcessCommand
+            ??= new LambdaCommand(OnStopProcessCommandExecuted, CanStopProcessCommandExecute);
+
+        /// <summary>Проверка возможности выполнения - Остановка процесса</summary>
+        private static bool CanStopProcessCommandExecute(object p) => true;
+
+        /// <summary>Логика выполнения - Остановка процесса</summary>
+        private void OnStopProcessCommandExecuted(object p)
+        {
+            
+        }
+
+        #endregion
+
+        public MainvViewModel(CountryStatisticViewModel statistic, IAsyngDataService asyngData, WebServerViewModel webServer)
+        {
+            _asyngData = asyngData;
             CountryStatistic = statistic;
+            WebServer = webServer;
             statistic.MainVm = this;
             /*CountryStatistic = new CountryStatisticViewModel(this);*/
             #region Команды
@@ -118,7 +181,7 @@ namespace CV19.ViewModels
             DeleteGroupCommand = new LambdaCommand(OnDeleteGroupCommandExecuted, CanDeleteGroupCommandExecute);
 
             #endregion
-            
+
         }
     }
 }

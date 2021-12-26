@@ -4,13 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CV19WPFTest"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:b="clr-namespace:CV19WPFTest.Behaviours"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
         
     </Window.Resources>
     <Grid>
-        <Button Style="{DynamicResource ButtonStyle1}" Content="Button" HorizontalAlignment="Left" Margin="256,110,0,0" VerticalAlignment="Top"/>
+        <Button  HorizontalAlignment="Center" VerticalAlignment="Center"
+                 Content="Start"
+                 Padding="30,20" />
 
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="None"/>
+        
+        <Canvas>
+            <Ellipse Canvas.Left="30" Canvas.Top="10" 
+                     Stroke="red" StrokeThickness="2"
+                     Fill="DarkBlue" Width="20" Height="20">
+                <i:Interaction.Behaviors>
+                    <!--<i:MouseDragElementBehavior />-->
+                    <b:DragInCanvas x:Name="EllipseDragBehavior" />
+                </i:Interaction.Behaviors>
+            </Ellipse>
+            <Button Canvas.Left="244" Canvas.Top="31" Content="Закрыть" >
+                <i:Interaction.Behaviors>
+                    <b:CloseWindown />
+                </i:Interaction.Behaviors>
+            </Button>
+            <TextBlock Canvas.Left="10" Canvas.Top="40"
+                       Text="{Binding Path=PositionX,ElementName=EllipseDragBehavior}" />
+            <TextBlock Canvas.Left="10" Canvas.Top="60"
+                       Text="{Binding Path=PositionY,ElementName=EllipseDragBehavior}" />
+        </Canvas>
     </Grid>
 </Window>

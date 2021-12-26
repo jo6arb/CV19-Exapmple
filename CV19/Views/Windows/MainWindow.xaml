@@ -3,19 +3,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:CV19.ViewModels"
-        xmlns:decanat="clr-namespace:CV19.Models.Decanat"
-        xmlns:fa5="http://schemas.fontawesome.com/icons/"
-        xmlns:l="clr-namespace:CV19"
         xmlns:view="clr-namespace:CV19.Views"
-        xmlns:system="clr-namespace:System;assembly=System.Runtime.Extensions"
+        xmlns:cmd ="clr-namespace:CV19.Infrastructure.Commands"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        Style="{StaticResource Cv19WindowStyle}"
         Title="{Binding Title}" Height="450" Width="800"
        DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
-    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Path=CountryStatistic.RefreshDataCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
                 <MenuItem Header="Выход" Command="{Binding CloseApplicationCommand}" />
+            </MenuItem>
+            <MenuItem Header="Сервис">
+                <MenuItem Header="Вэб-сервер" DataContext="{Binding WebServer}">
+                    <MenuItem Header="Включен" IsCheckable="True" IsChecked="{Binding Enabled}"/>
+                    <Separator />
+                    <MenuItem Header="Включен" Command="{Binding StartCommand}" />
+                    <MenuItem Header="Выключить" Command="{Binding StopCommand}" />
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Управление студентами">
+                    <MenuItem.Command>
+                        <cmd:ManageStudentCommand />
+                    </MenuItem.Command>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Помощь">
                 <MenuItem Header="О программе" />
@@ -37,7 +53,17 @@
            
             
             <TabItem Header="Отладка">
-                <TextBlock Text="{x:Static system:Environment.CurrentDirectory}"></TextBlock>
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" Margin="5,5,5,0">
+                        <UniformGrid DockPanel.Dock="Left" HorizontalAlignment="Left" Rows="1"
+                                     >
+                            <Button Margin="5" Padding="20,5" Content="Запуск" Command="{Binding StartProccessCommand}" />
+                            <Button Margin="5" Padding="20,5" Content="Остановка"  Command="{Binding StopProcessCommand}"  />
+                        </UniformGrid>
+                        <ProgressBar DockPanel.Dock="Top"  Margin="10" />
+                    </DockPanel>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding DataValue}" FontSize="30" />
+                </DockPanel>
             </TabItem> 
             </TabControl>
     </DockPanel>
