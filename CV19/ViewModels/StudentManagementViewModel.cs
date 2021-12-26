@@ -38,6 +38,8 @@ namespace CV19.ViewModels
 
         #endregion
 
+
+
         public StudentManagementViewModel(StudentsManager studentsManager) => _studentsManager = studentsManager;
     }
 }
