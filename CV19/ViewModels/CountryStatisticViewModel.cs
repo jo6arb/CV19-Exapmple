@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using CV19.Infrastructure.Commands;
 using CV19.Models;
-using CV19.Services;
 using CV19.Services.Interfaces;
 using CV19.ViewModels.Base;
 

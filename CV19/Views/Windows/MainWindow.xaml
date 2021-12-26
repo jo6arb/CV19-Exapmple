@@ -3,12 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:CV19.ViewModels"
-        xmlns:decanat="clr-namespace:CV19.Models.Decanat"
-        xmlns:fa5="http://schemas.fontawesome.com/icons/"
-        xmlns:l="clr-namespace:CV19"
         xmlns:view="clr-namespace:CV19.Views"
-        xmlns:system="clr-namespace:System;assembly=System.Runtime.Extensions"
+        xmlns:cmd ="clr-namespace:CV19.Infrastructure.Commands"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         Style="{StaticResource Cv19WindowStyle}"
         Title="{Binding Title}" Height="450" Width="800"
@@ -29,6 +25,12 @@
                     <Separator />
                     <MenuItem Header="Включен" Command="{Binding StartCommand}" />
                     <MenuItem Header="Выключить" Command="{Binding StopCommand}" />
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Управление студентами">
+                    <MenuItem.Command>
+                        <cmd:ManageStudentCommand />
+                    </MenuItem.Command>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Помощь">

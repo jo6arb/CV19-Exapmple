@@ -1,9 +1,13 @@
 ﻿using System;
+using CV19.Models.Interfaces;
 
 namespace CV19.Models.Decanat
 {
-    internal  class Student
+    internal  class Student : IEntity
     {
+
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string Surname { get; set; }
